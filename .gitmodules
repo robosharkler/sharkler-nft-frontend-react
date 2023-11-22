@@ -1,0 +1,3 @@
+[submodule "sharkler-nft-contract"]
+	path = sharkler-nft-contract
+	url = git@github.com:robosharkler/sharkler-nft-contract.git
