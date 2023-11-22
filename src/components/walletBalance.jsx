@@ -7,9 +7,9 @@ function WalletBalance() {
     
     const getBalance = async () => {
         const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const provider = new ethers.BrowserProvider(window.ethereum);
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
         const balance = await provider.getBalance(account);
-        setBalance(ethers.formatEther(balance));
+        setBalance(ethers.utils.formatEther(balance));
     };
   
     return (
