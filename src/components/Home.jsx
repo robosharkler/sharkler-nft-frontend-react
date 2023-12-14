@@ -80,6 +80,7 @@ function NFTImage({ tokenId, getCount }) {
     const addr = connection.address;
     const result = await contract.payToMint(addr, metadataURI, {
       value: ethers.utils.parseEther('0.05'),
+      gasLimit: 100000,
     });
 
     await result.wait();
