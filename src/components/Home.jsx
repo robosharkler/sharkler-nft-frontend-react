@@ -9,6 +9,9 @@ const provider = new ethers.providers.Web3Provider(window.ethereum);
 const signer = provider.getSigner();
 // get the smart contract
 const contract = new ethers.Contract(contractAddress, SharklerNft.abi, signer);
+// get user wallet address
+const connectedAddress = await signer.getAddress();
+
 
 function Home() {
   const [totalMinted, setTotalMinted] = useState(0);
@@ -76,11 +79,8 @@ function NFTImage({ tokenId, getCount }) {
   };
 
   const mintToken = async () => {
-    const connection = contract.connect(signer);
-    const addr = connection.address;
-    const result = await contract.payToMint(addr, metadataURI, {
-      value: ethers.utils.parseEther('0.05'),
-      gasLimit: 210000,
+    const result = await contract.payToMint(connectedAddress, metadataURI, {
+      value: ethers.utils.parseEther('0.05')
     });
 
     await result.wait();
