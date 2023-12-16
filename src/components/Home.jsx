@@ -4,16 +4,16 @@ import { useEffect, useState } from 'react';
 import SharklerNft from '../../sharkler-nft-contract/src/artifacts/contracts/SharklerNft.sol/SharklerNft.json';
 
 const contractAddress = '0xF1f3E5e56A8A562cF0010dEb06484AbfBEc43353';
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-// get the end user
-const signer = provider.getSigner();
-// get the smart contract
-const contract = new ethers.Contract(contractAddress, SharklerNft.abi, signer);
-// get user wallet address
-const connectedAddress = async () => await signer.getAddress();
-
 
 function Home() {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  // get the end user
+  const signer = provider.getSigner();
+  // get the smart contract
+  const contract = new ethers.Contract(contractAddress, SharklerNft.abi, signer);
+  // get user wallet address
+  const connectedAddress = async () => await signer.getAddress();
+
   const [totalMinted, setTotalMinted] = useState(0);
 
   // update totalMinted
@@ -34,14 +34,14 @@ function Home() {
         .fill(0)
         .map((_, i) => (
           <div key={i}>
-            <NFTImage tokenId={i} getCount={getCount} />
+            <NFTImage tokenId={i} getCount={getCount} contract={contract} connectedAddress={connectedAddress}/>
           </div>
         ))}
     </div>
   );
 }
 
-function NFTImage({ tokenId, getCount }) {
+function NFTImage({ tokenId, getCount, contract, connectedAddress}) {
   const metadataCID = 'QmR9nXy6XHmJcGLXHDjWN79BhaQEN21LU4kU4V2QvkdbDN';
   const metadataURI = `ipfs://${metadataCID}/${tokenId}.json`;
   const metadataAccessURI = `https://ipfs.io/ipfs/${metadataCID}/${tokenId}.json`;
