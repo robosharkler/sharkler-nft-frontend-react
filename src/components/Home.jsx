@@ -10,7 +10,7 @@ const signer = provider.getSigner();
 // get the smart contract
 const contract = new ethers.Contract(contractAddress, SharklerNft.abi, signer);
 // get user wallet address
-const connectedAddress = await signer.getAddress();
+const connectedAddress = async () => await signer.getAddress();
 
 
 function Home() {
